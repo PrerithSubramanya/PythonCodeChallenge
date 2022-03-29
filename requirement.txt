@@ -1,0 +1,5 @@
+pyasn1==0.4.8
+pycryptodome==3.14.1
+rsa==4.8
+scrypt==0.8.20
+
