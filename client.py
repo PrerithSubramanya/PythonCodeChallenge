@@ -23,7 +23,7 @@ with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as sockObj:
     message = b"P0"
     encrypted = cipher.encrypt(message)
     Pass = "encrypted_message="+str(encrypted) # encrypt password using public key
-    print("Public key encrypted clientpass")
+    print("Sending public key encrypted clientpass/pasword to server")
     sockObj.sendall(Pass.encode()) # send password
 
     server_response = sockObj.recv(1024) # recieve AESkey and signature
@@ -36,6 +36,7 @@ with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as sockObj:
         print("AES key verified (from server)")
         AES_encrpyt_msg = encrypt_AES_GCM(b"hello", aes_key)# send AES encrypted message
         AES_encrpyt_msg = pickle.dumps(AES_encrpyt_msg)
+        print("Sending AES encrypted hello to server")
         sockObj.sendall(AES_encrpyt_msg)
         server_response = sockObj.recv(1024)
         AES_server_msg = pickle.loads(server_response)
